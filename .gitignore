@@ -1,0 +1,79 @@
+# ==============================
+# Python
+# ==============================
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# ==============================
+# Flask
+# ==============================
+
+instance/
+.webassets-cache/
+
+# ==============================
+# Environment / Secrets
+# ==============================
+
+.env
+.env.*
+!.env.example
+
+# ==============================
+# Database / Local files
+# ==============================
+
+*.db
+*.sqlite
+*.sqlite3
+
+# MySQL dumps
+*.sql.bak
+
+# ==============================
+# IDE / VS Code
+# ==============================
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# ==============================
+# Operating System
+# ==============================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==============================
+# Logs
+# ==============================
+
+*.log
+
+# ==============================
+# Temporary files
+# ==============================
+
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# ==============================
+# Python testing / coverage
+# ==============================
+
+.pytest_cache/
+.coverage
+htmlcov/

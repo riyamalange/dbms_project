@@ -1,84 +1,152 @@
 # Unified Payment Gateway Management System
 
-A database-driven web application developed as a DBMS group project to demonstrate the management of customers, merchants, payment methods, payment gateways, transactions, and refunds through a unified payment platform.
+A DBMS-based web application for managing payments, orders, merchants, transactions, refunds, and settlements through a unified payment gateway system.
 
-## 📌 Project Overview
+## Project Overview
 
-The Unified Payment Gateway Management System provides a centralized platform for managing payment-related operations.
+The Unified Payment Gateway Management System provides a centralized platform for managing payment operations for food delivery and ride applications.
 
-The system allows users to:
+The system is designed around common payment operations such as:
 
-- Register and log in
-- Manage payment methods
-- View available merchants and payment gateways
-- Make demo payments
-- View transaction history
-- Process refunds
-- View payment and transaction statistics
+- Customer management
+- Merchant management
+- Food delivery orders
+- Ride orders
+- Payment methods
+- Payment gateways
+- Payment transactions
+- Refunds
+- Merchant settlements
 
-This project demonstrates the practical implementation of database concepts such as relational tables, primary keys, foreign keys, constraints, relationships, SQL queries, and transaction management.
-
-> **Note:** This is an academic/demo project. It does not process real payments or store real card, CVV, UPI PIN, or banking credentials.
-
----
-
-## 🎯 Objectives
-
-The main objectives of this project are:
-
-1. To design a relational database for payment gateway management.
-2. To manage customer, merchant, payment gateway, and transaction information.
-3. To demonstrate relationships between multiple database entities.
-4. To implement CRUD operations using a web application.
-5. To provide transaction and refund management.
-6. To demonstrate database constraints and data integrity.
-7. To provide a simple and user-friendly payment management interface.
+The project uses a Flask backend, MySQL database, and HTML/CSS/JavaScript frontend.
 
 ---
 
-## 🛠️ Technologies Used
+## Features
+
+### Dashboard
+
+The dashboard provides an overview of:
+
+- Total revenue
+- Successful payments
+- Total orders
+- Active merchants
+- Recent transactions
+- Quick payment operations
+
+### Payment Management
+
+The system supports demonstration of different payment methods:
+
+- UPI
+- Credit/Debit Card
+- Net Banking
+- Wallet
+- Cash
+
+### Payment Gateways
+
+The system models multiple payment gateways, such as:
+
+- Razorpay
+- Stripe
+- PayU
+
+### Order Management
+
+The system supports two major order types:
+
+- FOOD - Food delivery orders
+- RIDE - Ride service orders
+
+### Merchant Management
+
+Merchants can represent:
+
+- Restaurants
+- Drivers
+- Food delivery businesses
+- Ride service providers
+
+### Transaction Management
+
+The transaction module stores and displays:
+
+- Transaction ID
+- Customer
+- Payment method
+- Payment gateway
+- Amount
+- Transaction status
+
+### Refund Management
+
+Refund records contain:
+
+- Refund ID
+- Transaction ID
+- Refund reason
+- Refund amount
+- Refund status
+
+### Settlement Management
+
+Merchant settlements contain:
+
+- Settlement ID
+- Merchant
+- Settlement amount
+- Settlement date
+- Settlement status
+
+---
+
+## Technology Stack
 
 ### Frontend
+
 - HTML5
 - CSS3
 - JavaScript
 
 ### Backend
+
 - Python
 - Flask
 - Flask-CORS
 
 ### Database
+
 - MySQL
 
-### Database Connectivity
-- MySQL Connector/Python
-
 ### Development Tools
+
 - Visual Studio Code
+- MySQL Workbench
 - Git
 - GitHub
 
 ---
 
-## 🏗️ System Architecture
+## Project Structure
 
 ```text
-              ┌─────────────────────┐
-              │      Frontend       │
-              │   HTML / CSS / JS   │
-              └──────────┬──────────┘
-                         │
-                         │ HTTP Requests
-                         ▼
-              ┌─────────────────────┐
-              │       Flask         │
-              │      Backend        │
-              └──────────┬──────────┘
-                         │
-                         │ SQL Queries
-                         ▼
-              ┌─────────────────────┐
-              │       MySQL         │
-              │      Database       │
-              └─────────────────────┘
+unified-payment-gateway/
+│
+├── backend/
+│   ├── app.py
+│   ├── config.py
+│   ├── database.py
+│   └── requirements.txt
+│
+├── database/
+│   └── schema.sql
+│
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+│
+├── .gitignore
+└── README.md

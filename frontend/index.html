@@ -1,1 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Unified Payment Gateway</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">₹</div>
+
+            <div>
+                <h2>UnifiedPay</h2>
+                <span>Payment Gateway</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <p class="menu-title">MAIN</p>
+
+            <button class="nav-item active" onclick="showSection('dashboard', this)">
+                <span>▦</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item" onclick="showSection('payments', this)">
+                <span>💳</span>
+                Payments
+            </button>
+
+            <button class="nav-item" onclick="showSection('orders', this)">
+                <span>🛍</span>
+                Orders
+            </button>
+
+            <button class="nav-item" onclick="showSection('merchants', this)">
+                <span>🏪</span>
+                Merchants
+            </button>
+
+            <p class="menu-title">MANAGEMENT</p>
+
+            <button class="nav-item" onclick="showSection('transactions', this)">
+                <span>↔</span>
+                Transactions
+            </button>
+
+            <button class="nav-item" onclick="showSection('refunds', this)">
+                <span>↩</span>
+                Refunds
+            </button>
+
+            <button class="nav-item" onclick="showSection('settlements', this)">
+                <span>₹</span>
+                Settlements
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="system-status">
+                <span class="online-dot"></span>
+
+                <div>
+                    <strong>System Online</strong>
+                    <small>Backend connected</small>
+                </div>
+            </div>
+
+            <button class="logout-btn" onclick="logout()">
+                ⎋ Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p>Unified Payment Gateway Management System</p>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="backend-status">
+                    <span></span>
+                    Flask API
+                </div>
+
+                <div class="profile">
+                    <div class="avatar">A</div>
+
+                    <div>
+                        <strong>Admin</strong>
+                        <small>Administrator</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="section active-section">
+
+            <div class="welcome-card">
+
+                <div>
+                    <p class="eyebrow">PAYMENT OPERATIONS</p>
+
+                    <h2>
+                        Welcome to UnifiedPay
+                    </h2>
+
+                    <p>
+                        Manage payments, orders, merchants, refunds and settlements
+                        from one centralized platform.
+                    </p>
+                </div>
+
+                <div class="welcome-icon">
+                    ₹
+                </div>
+
+            </div>
+
+
+            <!-- KPI CARDS -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">₹</div>
+
+                    <div>
+                        <span>Total Revenue</span>
+                        <h2 id="totalRevenue">₹0</h2>
+                        <small class="positive">↑ 12.5% this month</small>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+
+                    <div>
+                        <span>Successful Payments</span>
+                        <h2 id="successfulPayments">0</h2>
+                        <small class="positive">↑ 8.2%</small>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">⌁</div>
+
+                    <div>
+                        <span>Total Orders</span>
+                        <h2 id="totalOrders">0</h2>
+                        <small>Food + Ride</small>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">🏪</div>
+
+                    <div>
+                        <span>Active Merchants</span>
+                        <h2 id="activeMerchants">0</h2>
+                        <small class="positive">System active</small>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD GRID -->
+            <div class="dashboard-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h3>Recent Transactions</h3>
+                            <p>Latest payment activity</p>
+                        </div>
+
+                        <button class="view-btn"
+                                onclick="showSectionByName('transactions')">
+                            View All
+                        </button>
+
+                    </div>
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+                                <tr>
+                                    <th>Transaction</th>
+                                    <th>Customer</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="recentTransactions"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h3>Quick Actions</h3>
+                            <p>Common operations</p>
+                        </div>
+
+                    </div>
+
+                    <div class="quick-actions">
+
+                        <button onclick="showSectionByName('payments')">
+                            <span>💳</span>
+                            <div>
+                                <strong>New Payment</strong>
+                                <small>Process payment</small>
+                            </div>
+                        </button>
+
+                        <button onclick="addDemoOrder()">
+                            <span>🛍</span>
+                            <div>
+                                <strong>Create Order</strong>
+                                <small>Add demo order</small>
+                            </div>
+                        </button>
+
+                        <button onclick="showSectionByName('refunds')">
+                            <span>↩</span>
+                            <div>
+                                <strong>Refund</strong>
+                                <small>Process refund</small>
+                            </div>
+                        </button>
+
+                        <button onclick="showSectionByName('settlements')">
+                            <span>₹</span>
+                            <div>
+                                <strong>Settlement</strong>
+                                <small>View settlements</small>
+                            </div>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PAYMENTS -->
+        <section id="payments" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Payments</h2>
+                    <p>Process and monitor payment transactions.</p>
+                </div>
+
+            </div>
+
+            <div class="payment-layout">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Create Payment</h3>
+                            <p>Demo payment transaction</p>
+                        </div>
+                    </div>
+
+                    <form id="paymentForm">
+
+                        <label>Customer Name</label>
+                        <input
+                            type="text"
+                            id="customerName"
+                            placeholder="Enter customer name"
+                            required
+                        >
+
+                        <label>Amount (₹)</label>
+                        <input
+                            type="number"
+                            id="paymentAmount"
+                            placeholder="Enter amount"
+                            min="1"
+                            required
+                        >
+
+                        <label>Payment Method</label>
+
+                        <select id="paymentMethod">
+
+                            <option value="UPI">UPI</option>
+                            <option value="Card">Credit / Debit Card</option>
+                            <option value="Net Banking">Net Banking</option>
+                            <option value="Wallet">Wallet</option>
+                            <option value="Cash">Cash</option>
+
+                        </select>
+
+                        <label>Gateway</label>
+
+                        <select id="gateway">
+
+                            <option>Razorpay</option>
+                            <option>Stripe</option>
+                            <option>PayU</option>
+
+                        </select>
+
+                        <button class="primary-btn" type="submit">
+                            Process Payment
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="panel payment-info">
+
+                    <div class="secure-icon">🔐</div>
+
+                    <h3>Secure Payment Processing</h3>
+
+                    <p>
+                        UnifiedPay connects customers, merchants and payment
+                        gateways through a centralized payment management system.
+                    </p>
+
+                    <div class="security-item">
+                        <span>✓</span>
+                        <div>
+                            <strong>Gateway Integration</strong>
+                            <small>Multiple payment gateways supported</small>
+                        </div>
+                    </div>
+
+                    <div class="security-item">
+                        <span>✓</span>
+                        <div>
+                            <strong>Transaction Tracking</strong>
+                            <small>Monitor payment status</small>
+                        </div>
+                    </div>
+
+                    <div class="security-item">
+                        <span>✓</span>
+                        <div>
+                            <strong>Refund Management</strong>
+                            <small>Process customer refunds</small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ORDERS -->
+        <section id="orders" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Orders</h2>
+                    <p>Food delivery and ride orders.</p>
+                </div>
+
+                <button class="primary-btn small-btn" onclick="addDemoOrder()">
+                    + Add Demo Order
+                </button>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Type</th>
+                                <th>Customer</th>
+                                <th>Merchant</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="ordersTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MERCHANTS -->
+        <section id="merchants" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Merchants</h2>
+                    <p>Restaurants and ride service providers.</p>
+                </div>
+
+            </div>
+
+            <div class="merchant-grid" id="merchantGrid"></div>
+
+        </section>
+
+
+        <!-- TRANSACTIONS -->
+        <section id="transactions" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Transactions</h2>
+                    <p>Complete payment transaction history.</p>
+                </div>
+
+                <input
+                    class="search-input"
+                    type="text"
+                    id="transactionSearch"
+                    placeholder="Search transactions..."
+                    oninput="renderTransactions()"
+                >
+
+            </div>
+
+            <div class="panel">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Customer</th>
+                                <th>Method</th>
+                                <th>Gateway</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="transactionsTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- REFUNDS -->
+        <section id="refunds" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Refunds</h2>
+                    <p>Monitor customer refund requests.</p>
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Refund ID</th>
+                                <th>Transaction</th>
+                                <th>Reason</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="refundsTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SETTLEMENTS -->
+        <section id="settlements" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Settlements</h2>
+                    <p>Merchant settlement information.</p>
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Settlement ID</th>
+                                <th>Merchant</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="settlementsTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- TOAST -->
+<div id="toast" class="toast">
+    <span>✓</span>
+    <p id="toastMessage">Success</p>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
